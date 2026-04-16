@@ -60,7 +60,15 @@ pip install google-genai fpdf requests python-dotenv
 ```
 
 ### 4. Set Up Environment Variables
-Create a `.env` file in the project root:
+Copy the sample file and add your real API keys locally:
+```bash
+cp .env.example .env           # macOS/Linux
+```
+```powershell
+Copy-Item .env.example .env    # Windows PowerShell
+```
+
+Then edit `.env`:
 ```env
 RAPIDAPI_KEY=your_rapidapi_key_here
 GEMINI_API_KEY=your_gemini_api_key_here
@@ -69,6 +77,26 @@ GEMINI_API_KEY=your_gemini_api_key_here
 **How to get API keys:**
 - **RAPIDAPI_KEY**: Sign up at [RapidAPI](https://rapidapi.com), subscribe to [JSearch](https://rapidapi.com/letscrape-6bRBa3QQKCUaDXX8p/api/jsearch)
 - **GEMINI_API_KEY**: Get free access at [Google AI Studio](https://aistudio.google.com/apikey)
+
+---
+
+## Privacy and Local Templates
+This project keeps sensitive data local by design:
+- `.env` is ignored by Git and should never be committed.
+- `master_cv.txt` is also ignored by Git and should contain your private CV details locally only.
+- Use `master_cv_template.txt` as a safe example if you want a non-sensitive starting point.
+
+If you have already committed sensitive data, consider rewriting history with tools like `git filter-repo` or `git filter-branch`.
+For example:
+```bash
+git filter-repo --path master_cv.txt --invert-paths
+```
+Or, for older Git versions:
+```bash
+git filter-branch --index-filter 'git rm --cached --ignore-unmatch master_cv.txt' -- --all
+```
+
+Be aware that rewriting history changes commit hashes and should be used carefully, especially on shared branches.
 
 ---
 
@@ -84,42 +112,87 @@ Searches for jobs matching your configured queries (IT Sales Manager, Account Ma
 
 ### Step 2: Tailor Your CV
 ```bash
-python tailor_cv.py
+python tailor_cv.py --all --config tailor_config.json
 ```
-Interactive selection of jobs. The tool uses Google Gemini to tailor your master CV to each opportunity, then saves results to `tailored_cvs/`.
+This non-interactive CLI mode tailors your master CV for every job in `jobs_found.csv` and saves results to `tailored_cvs/`.
 
-**Example output**:
-```
-CV Tailoring Bot - Starting...
-
-Loaded master CV (4848 characters)
-
-Found 171 jobs in your CSV
-
-Which jobs do you want to tailor your CV for?
-
-  [0] Technical Sales Manager
-  [1] Cyber Security Sales Exec
-  [2] Technical Sales Manager (Scientific Industry)
-  ...
-  [A] Convert ALL
-
-Enter job numbers separated by commas (e.g. 0,3,7): 1
-
-Tailoring CV for 1 jobs...
-
-  Tailoring for: Cyber Security Sales Exec at Unknown Company...
-  Saved: tailored_cvs/20260416_Unknown_Company_Cyber_Security_Sales_Exec.txt
-  Apply: https://uk.linkedin.com/jobs/view/...
+Other useful options:
+```bash
+python tailor_cv.py --top 5 --config tailor_config.json --workers 2 --log-level INFO
+python tailor_cv.py --indices 0,2,4 --config tailor_config.json --workers 2 --log-level INFO
+python tailor_cv.py --list --config tailor_config.json --log-level DEBUG
 ```
 
 ### Step 3: Generate PDFs
 ```bash
-python generate_pdf.py
+python generate_pdf.py --all
 ```
-Converts tailored CVs to professional PDF format. Interactive menu allows batch conversion.
+Converts all tailored CV `.txt` files into PDFs and saves them to `pdf_cvs/`.
 
-**Output**: `pdf_cvs/` folder with PDF files ready for submission
+Other useful options:
+```bash
+python generate_pdf.py --indices 0,1
+python generate_pdf.py --pattern Cyber_Security
+```
+
+### Full Pipeline
+```bash
+python run_all.py --top 5
+```
+Searches for jobs, tailors the top 5 best-matching CVs, and generates PDFs automatically.
+
+**Output**: `jobs_found.csv`, `tailored_cvs/`, and `pdf_cvs/`
+
+---
+
+## CLI Reference
+
+Use these exact commands to run each script without interactive prompts.
+
+### Search jobs
+```bash
+python search_jobs.py --queries "IT Sales Manager" "Technical Account Manager" --country gb --num-pages 3 --preview 5
+```
+
+### Tailor CVs
+```bash
+python tailor_cv.py --all --config tailor_config.json
+```
+
+Tailor the top 5 matched jobs:
+```bash
+python tailor_cv.py --top 5 --config tailor_config.json
+```
+
+Tailor specific job indices:
+```bash
+python tailor_cv.py --indices 0,2,4 --config tailor_config.json
+```
+
+List available jobs with estimated fit:
+```bash
+python tailor_cv.py --list --config tailor_config.json
+```
+
+### Generate PDFs
+```bash
+python generate_pdf.py --all
+```
+
+Convert specific tailored CV files:
+```bash
+python generate_pdf.py --indices 0,1
+```
+
+Convert files matching a keyword:
+```bash
+python generate_pdf.py --pattern Cyber_Security
+```
+
+### Run the whole pipeline
+```bash
+python run_all.py --top 5 --config tailor_config.json --workers 2 --log-level INFO
+```
 
 ---
 
@@ -130,11 +203,14 @@ job-hunter-bot/
 ├── search_jobs.py           # Job search automation
 ├── tailor_cv.py             # AI-powered CV tailoring
 ├── generate_pdf.py          # PDF generation
-├── master_cv.txt            # Your master CV template
+├── master_cv_template.txt   # Safe CV template example
+├── master_cv.txt            # Your private master CV (local only, ignored by git)
 ├── jobs_found.csv           # Search results (auto-generated)
 ├── tailored_cvs/            # Tailored CVs (auto-generated)
 ├── pdf_cvs/                 # Generated PDFs (auto-generated)
-├── .env                     # API keys (create manually)
+├── tailor_config.json       # AI prompt and keyword scoring configuration
+├── .env.example             # Example environment variables file
+├── .env                     # API keys (create manually, ignored by git)
 ├── .gitignore               # Git configuration
 ├── requirements.txt         # Python dependencies
 └── README.md                # This file
@@ -172,6 +248,8 @@ REMOTE_ONLY = False               # Set True for remote-only jobs
 ```
 
 ### Customize CV Tailoring
+
+Edit `tailor_config.json` to update the prompt template, keyword scoring, and default selection count.
 
 Edit `tailor_cv.py`:
 ```python
@@ -235,6 +313,26 @@ python generate_pdf.py
 # 4. Submit applications
 # Upload PDFs from pdf_cvs/ to job sites
 ```
+
+---
+
+## Demo
+
+### Example Non-Interactive Run
+```bash
+python run_all.py --top 5
+```
+
+This command runs the full pipeline:
+- searches for jobs using the configured keywords
+- saves results to `jobs_found.csv`
+- tailors the top 5 jobs to your master CV
+- generates professional PDFs in `pdf_cvs/`
+
+### Output Preview
+- `jobs_found.csv` — all collected listings
+- `tailored_cvs/` — text CVs created by Gemini
+- `pdf_cvs/` — final application-ready PDF resumes
 
 ---
 

@@ -1,0 +1,30 @@
+# Master CV Template
+
+## Professional Summary
+Experienced IT sales and account management professional with a strong track record of delivering customer-centric solutions, driving revenue growth, and managing strategic client relationships.
+
+## Core Competencies
+- Account management
+- SaaS sales
+- Technical support coordination
+- Stakeholder communication
+- CRM and ticketing systems
+
+## Professional Experience
+### Account Manager | Example Company
+- Managed accounts representing revenue growth and customer satisfaction.
+- Collaborated with technical teams to resolve escalations.
+- Presented progress updates to stakeholders.
+
+## Education
+- Bachelor of Business Administration, Example University
+
+## Certifications
+- Example Certification
+
+## Skills
+- Sales strategy
+- Customer success
+- Cloud services
+- Incident management
+- Microsoft Azure
