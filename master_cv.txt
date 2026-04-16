@@ -1,0 +1,83 @@
+MASTER CV — Gábor Krankovics
+
+CONTACT:
+Name: Gábor Krankovics
+Email: krankovics.gabor@gmail.com
+Phone: +36709444432
+Location: Budapest, Hungary, 1024
+Languages: English (C1), German (B2 - Professional), Hungarian (Native)
+
+PROFESSIONAL SUMMARY:
+Bilingual IT Service Professional with 9+ years of combined experience in Technical Operations, Cloud Support, and Enterprise Sales. Proven track record of bridging the gap between complex technical infrastructure and business goals. Expertise in Incident Management, SLA delivery, and Stakeholder Management across the DACH and EMEA regions.
+
+CORE COMPETENCIES:
+- Incident & Major Incident Management
+- SLA/KPI Governance
+- Root Cause Analysis (RCA)
+- Vendor Management
+- Service Improvement Plans (SIP)
+- Cross-functional Team Coordination
+- Training & Onboarding
+- VIP Stakeholder Management
+- Workflow Optimization
+- Crisis Resolution
+- ServiceNow, Salesforce, Jira
+- Azure & Huawei Cloud
+- Linux (CLI)
+- Windows Server
+- Active Directory
+- O365 Administration
+- Solution Sales / SaaS Sales
+- CRM Data Management
+- Contract Negotiation
+- GDPR/ISO Compliance
+
+PROFESSIONAL EXPERIENCE:
+
+Customer Success Manager (DACH Region) | Sophos | 12/2023 – 12/2025
+Budapest, HUN (Remote)
+Protected revenue by functioning as the strategic interface between Engineering, Support and Enterprise Clients, ensuring service continuity and adoption.
+- Service Delivery: Manage the technical adoption and health of cybersecurity portfolios for high-value clients in the DACH region, ensuring alignment with business objectives
+- Incident Escalation: Serve as the escalation point for critical technical blockers, coordinating with L3 engineering to resolve network security and firewall configuration issues
+- Process Improvement: Analyzing client infrastructure to recommend deployment frameworks that maximize ROI and system stability
+
+Cloud Technical Support Engineer (L2) | Huawei | 12/2022 – 11/2023
+Budapest, HUN (Hybrid)
+Provided advanced technical support and incident management for enterprise cloud customers.
+- SLA Management: Managed incident lifecycles within a strictly defined SLA environment, consistently achieving >95% adherence targets
+- Problem Management: Conducted Root Cause Analysis (RCA) for server performance and latency issues affecting EMEA-China connectivity, utilizing Linux CLI and log analysis
+- Cross-Team Collaboration: Partnered with global R&D teams to identify software bugs and deploy patches
+
+IT Site Administrator (Sole Site Lead) | Konecta | 05/2021 – 11/2022
+Budapest, HUN (On-Site)
+Managed end-to-end IT operations for a 100+ user site, acting as the Single Point of Contact (SPOC).
+- Infrastructure Leadership: Owned the end-to-end uptime of local network infrastructure (Switching, Wi-Fi) and workstation deployment, ensuring zero downtime during critical business hours
+- Vendor & Asset Management: Managed the hardware procurement budget and external vendor relationships, ensuring 100% equipment availability for new hires despite supply chain constraints
+- Compliance & Security: Enforced strict ISO/GDPR security policies regarding identity management (Active Directory/O365) and data access for all onboarding/offboarding procedures
+
+Service Desk Analyst (German/English) | Getronics | 12/2019 – 04/2021
+Budapest, HUN (Remote)
+Delivered frontline technical support for global enterprise clients with a focus on First Call Resolution (FCR).
+- Bilingual Support: Provided L1/L2 support for German-speaking stakeholders, resolving issues related to Active Directory, Exchange Online, and VPN connectivity
+- Knowledge Sharing: Created knowledge base articles and assisted in the training of junior analysts on ticketing system best practices (ServiceNow)
+
+Senior Inside Sales Representative | ArisGlobal | 01/2019 – 12/2019
+Budapest, HUN (Remote)
+- Qualification of technical leads and maintenance of CRM data integrity (Salesforce) for a leading provider of cloud-based enterprise software
+- Analysis of customer IT requirements for the preparation of quotations in the field of pharmacovigilance software
+
+Associate Account Executive | SAS Institute | 01/2017 – 12/2018
+Cary, NC & Budapest, HUN
+- Graduate of SAS Global Sales Academy: intensive training in SAS technology, data analysis architecture, and solution sales
+- Use of technical understanding of data analytics to close SaaS contracts (>$100k) in the pharmaceutical and agricultural sectors
+
+EDUCATION:
+BSc in International Business and Management | Budapest Business School | 09/2010 – 06/2015
+
+CERTIFICATIONS:
+- System Administration & Networking – PROGmasters (Intensive 400+ hour in-class training), 2021
+- SAS Global Sales Academy – SAS Institute (Top EMEA Graduate), 2017
+
+MISCELLANEOUS:
+- Driver's license: Class B
+- Leisure activities: hiking, cycling, and swimming (active recreation with the family)

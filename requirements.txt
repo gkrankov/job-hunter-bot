@@ -1,0 +1,4 @@
+google-genai==1.73.1
+fpdf==1.7.2
+requests==2.33.1
+python-dotenv==1.2.2
