@@ -1,52 +1,66 @@
-MASTER CV — Gábor Krankovics
+MASTER CV — [Your Name]
 
 CONTACT:
-Name: Gábor Krankovics
-Email: krankovics.gabor@gmail.com
-Phone: +36709444432
-Location: Budapest, Hungary, 1024
-Languages: English (C1), German (B2 - Professional), Hungarian (Native)
+Name: [Your Full Name]
+Email: [your.email@example.com]
+Phone: [Your Phone Number]
+Location: [Your City, Country]
+Languages: [Your Languages and Proficiency Levels]
 
 PROFESSIONAL SUMMARY:
-Bilingual IT Service Professional with 9+ years of combined experience in Technical Operations, Cloud Support, and Enterprise Sales. Proven track record of bridging the gap between complex technical infrastructure and business goals. Expertise in Incident Management, SLA delivery, and Stakeholder Management across the DACH and EMEA regions.
+[Write a 2-3 sentence professional summary highlighting your experience, skills, and career goals. Keep it concise and impactful.]
 
 CORE COMPETENCIES:
-- Incident & Major Incident Management
-- SLA/KPI Governance
-- Root Cause Analysis (RCA)
-- Vendor Management
-- Service Improvement Plans (SIP)
-- Cross-functional Team Coordination
-- Training & Onboarding
-- VIP Stakeholder Management
-- Workflow Optimization
-- Crisis Resolution
-- ServiceNow, Salesforce, Jira
-- Azure & Huawei Cloud
-- Linux (CLI)
-- Windows Server
-- Active Directory
-- O365 Administration
-- Solution Sales / SaaS Sales
-- CRM Data Management
-- Contract Negotiation
-- GDPR/ISO Compliance
+- [Skill 1]
+- [Skill 2]
+- [Skill 3]
+- [Skill 4]
+- [Skill 5]
+- [Technical Tool 1]
+- [Technical Tool 2]
+- [Software/Program 1]
+- [Certification 1]
+- [Soft Skill 1]
 
 PROFESSIONAL EXPERIENCE:
 
-Customer Success Manager (DACH Region) | Sophos | 12/2023 – 12/2025
-Budapest, HUN (Remote)
-Protected revenue by functioning as the strategic interface between Engineering, Support and Enterprise Clients, ensuring service continuity and adoption.
-- Service Delivery: Manage the technical adoption and health of cybersecurity portfolios for high-value clients in the DACH region, ensuring alignment with business objectives
-- Incident Escalation: Serve as the escalation point for critical technical blockers, coordinating with L3 engineering to resolve network security and firewall configuration issues
-- Process Improvement: Analyzing client infrastructure to recommend deployment frameworks that maximize ROI and system stability
+[Job Title] | [Company Name] | [Start Date] – [End Date]
+[Location] ([Remote/Hybrid/On-site])
+[Brief description of your role and company]
+- [Achievement/Responsibility 1]: [Specific details and impact]
+- [Achievement/Responsibility 2]: [Specific details and impact]
+- [Achievement/Responsibility 3]: [Specific details and impact]
 
-Cloud Technical Support Engineer (L2) | Huawei | 12/2022 – 11/2023
-Budapest, HUN (Hybrid)
-Provided advanced technical support and incident management for enterprise cloud customers.
-- SLA Management: Managed incident lifecycles within a strictly defined SLA environment, consistently achieving >95% adherence targets
-- Problem Management: Conducted Root Cause Analysis (RCA) for server performance and latency issues affecting EMEA-China connectivity, utilizing Linux CLI and log analysis
-- Cross-Team Collaboration: Partnered with global R&D teams to identify software bugs and deploy patches
+[Previous Job Title] | [Previous Company] | [Start Date] – [End Date]
+[Location] ([Remote/Hybrid/On-site])
+[Brief description of your role and company]
+- [Achievement/Responsibility 1]: [Specific details and impact]
+- [Achievement/Responsibility 2]: [Specific details and impact]
+- [Achievement/Responsibility 3]: [Specific details and impact]
+
+[Another Job Title] | [Another Company] | [Start Date] – [End Date]
+[Location] ([Remote/Hybrid/On-site])
+[Brief description of your role and company]
+- [Achievement/Responsibility 1]: [Specific details and impact]
+- [Achievement/Responsibility 2]: [Specific details and impact]
+- [Achievement/Responsibility 3]: [Specific details and impact]
+
+EDUCATION:
+
+[Degree/Program] | [University/Institution] | [Graduation Year]
+[Location]
+- [Relevant coursework, honors, or achievements]
+
+[Previous Degree] | [Previous Institution] | [Graduation Year]
+[Location]
+- [Relevant details]
+
+CERTIFICATIONS:
+- [Certification Name] | [Issuing Organization] | [Date Obtained]
+- [Certification Name] | [Issuing Organization] | [Date Obtained]
+
+ADDITIONAL INFORMATION:
+[Optional: Volunteer work, publications, professional memberships, etc.]
 
 IT Site Administrator (Sole Site Lead) | Konecta | 05/2021 – 11/2022
 Budapest, HUN (On-Site)

@@ -43,6 +43,7 @@ wheels/
 jobs_found.csv
 tailored_cvs/
 pdf_cvs/
+master_cv.txt
 
 # OS
 .DS_Store
