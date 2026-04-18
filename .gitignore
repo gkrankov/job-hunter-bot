@@ -44,6 +44,8 @@ jobs_found.csv
 tailored_cvs/
 pdf_cvs/
 master_cv.txt
+job_history.csv
+last_search.json
 
 # OS
 .DS_Store

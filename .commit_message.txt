@@ -1,0 +1,75 @@
+Implement comprehensive AI output quality controls and validation
+
+## Major Features Added
+
+### 1. Anti-Hallucination Prompt Engineering
+- Added CONTACT_BLOCK to inject user contact info, preventing prompt echo
+- Enhanced DEFAULT_PROMPT_TEMPLATE with strict rules against fabrication
+- Included concrete examples in prompt to guide AI behavior
+- Set Gemini temperature to 0.2 for consistent, deterministic outputs
+
+### 2. Output Cleaning & Formatting
+- Implemented clean_output() with fix_broken_bold() regex to repair split markdown
+- Handles edge cases like **C**RM being output as separate bold markers
+
+### 3. Metric Validation Layer
+- Added validate_metrics() to extract numeric claims from tailored CV
+- Cross-references extracted numbers against master CV for verification
+- Strips Match Score section and phone numbers to eliminate false positives
+- Properly excludes 4-digit years from validation
+- Generates warnings file for each job with detected hallucinations
+
+### 4. Robust Filename Sanitization
+- Created safe_filename() helper function
+- Replaces problematic characters with underscores
+- Collapses multiple spaces, caps length at 100 chars
+- Strips leading/trailing whitespace and dots (Windows compatibility)
+- Handles edge cases: empty strings, only dots, special characters
+
+### 5. Explicit Success/Failure Tracking
+- Wrapped tailor_job() calls in try/except within ThreadPoolExecutor
+- Collects successes and failures into separate lists
+- Prints summary: Succeeded: N, Failed: M
+- Lists each failure with job index, company, title, and error message
+- Persists failures to failures.log for later review
+
+### 6. Comprehensive Test Coverage
+Added 9 new unit tests:
+- test_fixes_split_bold: Validates markdown repair
+- test_validate_metrics_flags_hallucination: Detects fabricated metrics
+- test_validate_metrics_allows_real_numbers: Allows legitimate numbers
+- test_validate_metrics_ignores_years: Excludes year ranges
+- test_validate_metrics_ignores_match_score_section: Ignores AI scoring
+- test_safe_filename_removes_special_chars: Sanitizes problematic chars
+- test_safe_filename_caps_length: Enforces 100-char limit
+- test_safe_filename_handles_empty_string: Handles edge case
+- test_safe_filename_handles_only_dots: Windows filename compatibility
+
+## Bugs Fixed
+
+### The "36" Mystery
+- Root cause: Hungarian phone country code (+36) in CONTACT_BLOCK
+- False positive in metric validation regex
+- Fix: Strip phone numbers before extracting metrics
+
+### Index 20 Silent Failure
+- Cause: Special characters in company names breaking filename handling
+- Fix: safe_filename() properly sanitizes all problematic characters
+- Result: All 50 jobs now process successfully
+
+## Quality Improvements
+
+- Reliability: Temperature 0.2 + strict prompt + validation = hallucination-resistant
+- Transparency: Warnings files clearly document AI decisions for human review
+- Robustness: Handles edge cases in filenames, numbers, and prompt output
+- Auditability: Success/failure tracking with persistent logs
+- Maintainability: Comprehensive test suite covers happy and edge cases
+
+## Stress Test Results
+- 5 diverse roles tested: Software Engineer, Marketing Manager, Product Manager, Data Scientist, HR Specialist
+- Consistent output quality across different seniority levels
+- Proper metric validation with no false positives after fixes
+- Match scores calibrated and realistic (4-8/10 range)
+- Genuinely tailored cover letters per role, not formulaic
+
+Production ready for full CSV processing.

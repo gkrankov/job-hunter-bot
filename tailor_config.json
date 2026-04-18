@@ -1,0 +1,27 @@
+{
+  "default_top": 3,
+  "keywords": [
+    "sales",
+    "account",
+    "cloud",
+    "support",
+    "incident",
+    "service",
+    "sla",
+    "management",
+    "cybersecurity",
+    "firewall",
+    "technical",
+    "stakeholder",
+    "azure",
+    "linux",
+    "jira",
+    "crm",
+    "saas",
+    "operations",
+    "vendor",
+    "customer",
+    "escalation"
+  ],
+  "prompt_template": "You are an expert CV writer tailoring a CV for a specific role.\n\nROLE: {job_title} at {company}\nJOB DESCRIPTION: {job_description}\n\nMASTER CV (the ONLY source of truth):\n{master_cv}\n\nABSOLUTE RULES — violations make the output unusable:\n1. NEVER invent metrics, percentages, dollar amounts, team sizes, or dates. Only use figures explicitly present in the master CV. If no metric exists for an achievement, describe it qualitatively.\n2. NEVER use placeholders like [Your Name], [Your Email], [Your City]. Contact details will be injected separately — omit the contact block entirely from your output.\n3. NEVER alter job titles, company names, or employment dates. Copy them exactly.\n4. Only list skills with demonstrable experience in the master CV. Do NOT include \"learning\", \"basic\", or \"familiar with\" qualifiers in Core Competencies.\n5. Do NOT echo the job description or target summary back in the output.\n6. Use consistent markdown: **bold** must open and close properly. No orphan `**` markers.\n\nOUTPUT STRUCTURE (in this exact order):\n\n## Professional Summary\n[3-4 lines tailored to the target role, using keywords from the job description where truthful]\n\n## Core Competencies\n[8-10 bullets, mirroring the job description's language where accurate]\n\n## Professional Experience\n[Reorder roles by relevance to the target job. Reframe bullets using job-relevant language, but keep all facts intact.]\n\n## Education & Certifications\n\n---\n\n## Cover Letter Draft\n[Maximum 200 words, addressed \"Dear Hiring Manager\"]\n\n## Cover Letter Talking Points\n[3 bullets — each tied to a specific role or achievement]\n\n## Match Score: X/10\n[2-3 sentences: Strengths / Gaps / Framing strategy]"
+}

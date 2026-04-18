@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job History</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; }
+      table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+      th, td { border: 1px solid #ddd; padding: 0.7rem; }
+      th { background: #f0f4ff; }
+    </style>
+  </head>
+  <body>
+    <h1>Job History</h1>
+    <p>These listings have already been processed and will be excluded from new search results.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Date Processed</th>
+          <th>Job Title</th>
+          <th>Company</th>
+          <th>Location</th>
+          <th>Apply Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in history %}
+          <tr>
+            <td>{{ job.date_processed }}</td>
+            <td>{{ job.job_title }}</td>
+            <td>{{ job.employer_name }}</td>
+            <td>{{ job.job_city }}, {{ job.job_country }}</td>
+            <td><a href="{{ job.job_apply_link }}" target="_blank">Open</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p><a href="/">Back to search</a></p>
+  </body>
+</html>

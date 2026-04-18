@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Hunter Bot Dashboard</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; }
+      label { display: block; margin: 0.5rem 0 0.2rem; }
+      input, select { width: 100%; padding: 0.5rem; margin-bottom: 0.8rem; }
+      button { padding: 0.75rem 1.2rem; background: #2c7be5; color: white; border: none; cursor: pointer; }
+      table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+      th, td { border: 1px solid #ddd; padding: 0.7rem; }
+      th { background: #f0f4ff; }
+      .alert { padding: 1rem; margin-bottom: 1rem; border-radius: 5px; }
+      .alert-success { background: #daf5d7; }
+      .alert-warning { background: #fff3cd; }
+      .alert-danger { background: #f8d7da; }
+    </style>
+  </head>
+  <body>
+    <h1>Job Hunter Bot Dashboard</h1>
+    <p>Search and tailor job listings with a simple local dashboard.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form action="/search" method="post">
+      <label for="query">Search Query</label>
+      <input id="query" name="query" placeholder="IT Sales Manager" value="IT Sales Manager" />
+
+      <label for="country">Country</label>
+      <select id="country" name="country">
+        {% for code, label in country_options %}
+          <option value="{{ code }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="location">City / Location</label>
+      <input id="location" name="location" placeholder="London, Berlin, Remote" />
+
+      <label for="employment_type">Employment Type</label>
+      <select id="employment_type" name="employment_type">
+        {% for option in employment_types %}
+          <option value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+      </select>
+
+      <label><input type="checkbox" name="remote_only" /> Remote only</label>
+      <label for="num_pages">Pages to fetch</label>
+      <input id="num_pages" name="num_pages" type="number" min="1" max="5" value="2" />
+
+      <button type="submit">Search Jobs</button>
+    </form>
+
+    <section style="margin-top: 2rem;">
+      <h2>Job History</h2>
+      <p>{{ history_count }} previously processed job{{ '' if history_count == 1 else 's' }} are excluded from new searches.</p>
+      <p><a href="/history">View history details</a></p>
+    </section>
+  </body>
+</html>

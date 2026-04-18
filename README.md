@@ -59,6 +59,13 @@ Or install manually:
 pip install google-genai fpdf requests python-dotenv
 ```
 
+## Running Tests
+
+Run the unit tests with:
+```bash
+python -m unittest discover tests
+```
+
 ### 4. Set Up Environment Variables
 Copy the sample file and add your real API keys locally:
 ```bash
@@ -143,6 +150,16 @@ Searches for jobs, tailors the top 5 best-matching CVs, and generates PDFs autom
 
 **Output**: `jobs_found.csv`, `tailored_cvs/`, and `pdf_cvs/`
 
+### Local Dashboard
+```bash
+python dashboard.py
+```
+Open your browser at `http://127.0.0.1:5000` and use the dashboard to:
+- choose query, country, location, employment type, and remote filtering
+- view and select search results
+- tailor selected jobs and generate PDFs
+- review previously processed job history
+
 ---
 
 ## CLI Reference
@@ -205,6 +222,7 @@ job-hunter-bot/
 ├── generate_pdf.py          # PDF generation
 ├── master_cv_template.txt   # Safe CV template example
 ├── master_cv.txt            # Your private master CV (local only, ignored by git)
+├── dashboard.py             # Local Flask dashboard for search, selection, preview, and PDF download
 ├── jobs_found.csv           # Search results (auto-generated)
 ├── tailored_cvs/            # Tailored CVs (auto-generated)
 ├── pdf_cvs/                 # Generated PDFs (auto-generated)

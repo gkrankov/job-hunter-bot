@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Search Results</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; }
+      table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+      th, td { border: 1px solid #ddd; padding: 0.7rem; vertical-align: top; }
+      th { background: #f0f4ff; }
+      button { padding: 0.75rem 1.2rem; background: #2c7be5; color: white; border: none; cursor: pointer; }
+      .small { font-size: 0.9rem; color: #555; }
+    </style>
+  </head>
+  <body>
+    <h1>Job Search Results</h1>
+    <p>Query: <strong>{{ query }}</strong> | Country: <strong>{{ country }}</strong> | Location: <strong>{{ location or 'Any' }}</strong></p>
+    <p>Showing {{ jobs|length }} job{{ '' if jobs|length == 1 else 's' }}.</p>
+
+    <form action="/tailor" method="post">
+      <table>
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Posted</th>
+            <th>Apply</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in jobs %}
+            <tr>
+              <td><input type="checkbox" name="selected_job" value="{{ loop.index0 }}" /></td>
+              <td>{{ job.job_title }}</td>
+              <td>{{ job.employer_name }}</td>
+              <td>{{ job.job_city }}, {{ job.job_country }}</td>
+              <td>{{ job.job_employment_type or 'N/A' }}</td>
+              <td>{{ job.job_posted_at_datetime_utc[:10] if job.job_posted_at_datetime_utc else 'N/A' }}</td>
+              <td><a href="{{ job.job_apply_link }}" target="_blank">Open</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td colspan="6" class="small">{{ job.job_description }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <button type="submit" style="margin-top: 1rem;">Tailor Selected Jobs</button>
+    </form>
+
+    <p style="margin-top: 1rem;"><a href="/">Back to search</a></p>
+  </body>
+</html>
