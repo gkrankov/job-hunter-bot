@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "job-hunter-bot"
+version = "0.1.0"
+description = "Automated job search and CV tailoring tool powered by AI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Gabor Krankov", email = "gabor.krankov@email.com"}
+]
+keywords = ["job-search", "cv-tailoring", "ai", "automation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+]
+
+dependencies = [
+    "Flask==2.3.3",
+    "google-genai==1.73.1",
+    "fpdf==1.7.2",
+    "requests==2.33.1",
+    "python-dotenv==1.2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+]
+
+[project.scripts]
+job-hunter = "run_all:main"
+search-jobs = "search_jobs:main"
+tailor-cv = "tailor_cv:main"
+
+[tool.setuptools]
+packages = ["job_hunter_bot"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=. --cov-report=term-local"
+
+[tool.mypy]
+python_version = "3.8"
+check_untyped_defs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true

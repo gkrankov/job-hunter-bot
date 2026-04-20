@@ -3,6 +3,7 @@ import csv
 import hashlib
 import logging
 import os
+import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -10,7 +11,10 @@ from datetime import datetime
 import requests
 from dotenv import load_dotenv
 from requests.adapters import HTTPAdapter
+from tqdm import tqdm
 from urllib3.util.retry import Retry
+
+from validation import validate_rapidapi_key
 
 # Load API key from .env
 load_dotenv()
@@ -213,6 +217,11 @@ def main():
     args = parse_args()
     configure_logging(args.log_level)
     logger.info("🔍 Job Hunter Bot — Starting Search...")
+    
+    # Validate API key before proceeding
+    if not validate_rapidapi_key():
+        logger.error("Cannot proceed without valid RapidAPI key.")
+        sys.exit(1)
 
     all_jobs = []
     seen_links = set()
@@ -223,21 +232,23 @@ def main():
             executor.submit(search_jobs, query, args.country, args.num_pages, args.remote_only, session): query
             for query in args.queries
         }
-        for future in as_completed(future_to_query):
-            query = future_to_query[future]
-            try:
-                jobs = future.result()
-            except Exception as exc:
-                logger.error("Unexpected error searching '%s': %s", query, exc)
-                jobs = []
+        with tqdm(total=len(args.queries), desc="Searching queries", unit="query") as pbar:
+            for future in as_completed(future_to_query):
+                query = future_to_query[future]
+                try:
+                    jobs = future.result()
+                except Exception as exc:
+                    logger.error("Unexpected error searching '%s': %s", query, exc)
+                    jobs = []
 
-            unique_count_before = len(all_jobs)
-            for job in jobs:
-                link = job.get("job_apply_link", "")
-                if link and link not in seen_links:
-                    seen_links.add(link)
-                    all_jobs.append(job)
-            logger.info("Query '%s' returned %d jobs (%d unique total)", query, len(jobs), len(all_jobs))
+                unique_count_before = len(all_jobs)
+                for job in jobs:
+                    link = job.get("job_apply_link", "")
+                    if link and link not in seen_links:
+                        seen_links.add(link)
+                        all_jobs.append(job)
+                logger.info("Query '%s' returned %d jobs (%d unique total)", query, len(jobs), len(all_jobs))
+                pbar.update(1)
 
     logger.info("Total unique jobs found: %d", len(all_jobs))
     save_to_csv(all_jobs, filename=args.output)
