@@ -1,9 +1,14 @@
 import argparse
 import logging
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from tqdm import tqdm
+
 from search_jobs import search_jobs, save_to_csv
 from tailor_cv import load_config, load_master_cv, load_jobs_from_csv, tailor_cv, save_tailored_cv, rank_jobs, estimate_match_score
 from generate_pdf import generate_pdf_from_text
+from validation import validate_all_config
 
 logger = logging.getLogger(__name__)
 
@@ -77,13 +82,15 @@ def tailor_jobs_from_csv(jobs_csv, master_cv_path, tailored_dir, top, all_jobs, 
         for job in selected_jobs:
             futures.append(executor.submit(_tailor_job_and_save, job, config, master_cv, tailored_dir))
 
-        for future in as_completed(futures):
-            try:
-                path = future.result()
-                tailored_files.append(path)
-                logger.info("Saved tailored CV: %s", path)
-            except Exception as exc:
-                logger.error("A tailoring task failed: %s", exc)
+        with tqdm(total=len(selected_jobs), desc="Tailoring CVs", unit="job") as pbar:
+            for future in as_completed(futures):
+                try:
+                    path = future.result()
+                    tailored_files.append(path)
+                    logger.info("Saved tailored CV: %s", path)
+                except Exception as exc:
+                    logger.error("A tailoring task failed: %s", exc)
+                pbar.update(1)
 
     logger.info("✅ Tailoring complete.\n")
     return tailored_files
@@ -101,7 +108,7 @@ def _tailor_job_and_save(job, config, master_cv, tailored_dir):
 
 def convert_pdfs(tailored_files, output_dir):
     logger.info("📄 Generating PDFs...")
-    for txt_path in tailored_files:
+    for txt_path in tqdm(tailored_files, desc="Generating PDFs", unit="pdf"):
         pdf_path = generate_pdf_from_text(txt_path, output_dir)
         logger.info("  %s -> %s", txt_path, pdf_path)
     logger.info("✅ PDF generation complete.\n")
@@ -110,6 +117,12 @@ def convert_pdfs(tailored_files, output_dir):
 def main():
     args = parse_args()
     configure_logging(args.log_level)
+    
+    # Validate all configuration before running
+    if not validate_all_config():
+        logger.error("Configuration validation failed. Exiting.")
+        sys.exit(1)
+    
     queries = args.queries if args.queries else [
         "IT Sales Manager",
         "IT Account Manager",

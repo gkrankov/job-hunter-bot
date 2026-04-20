@@ -13,6 +13,9 @@ from typing import Any, Dict, List
 
 import google.genai as genai
 from dotenv import load_dotenv
+from tqdm import tqdm
+
+from validation import validate_gemini_api_key, validate_master_cv
 
 # Force UTF-8 console output on Windows
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -138,7 +141,7 @@ def load_config(path: str = CONFIG_PATH) -> Dict[str, Any]:
 
     config.setdefault("keywords", DEFAULT_KEYWORDS)
     config.setdefault("default_top", 3)
-    config.setdefault("workers", 2)
+    config.setdefault("workers", 5)
     config.setdefault("prompt_template", DEFAULT_PROMPT_TEMPLATE)
     return config
 
@@ -436,20 +439,22 @@ def create_tailored_cvs(
             executor.submit(tailor_job, job, config, master_cv, output_dir): job
             for job in selected_jobs
         }
-        for future in as_completed(future_to_job):
-            job = future_to_job[future]
-            try:
-                path = future.result()
-                successes.append((job, path))
-            except Exception as exc:
-                error_msg = str(exc)
-                failures.append((job, error_msg))
-                logger.error(
-                    "Tailoring failed for %s at %s: %s",
-                    job.get("job_title", "Unknown Role"),
-                    job.get("company", "Unknown Company"),
-                    error_msg,
-                )
+        with tqdm(total=len(selected_jobs), desc="Tailoring CVs", unit="job") as pbar:
+            for future in as_completed(future_to_job):
+                job = future_to_job[future]
+                try:
+                    path = future.result()
+                    successes.append((job, path))
+                except Exception as exc:
+                    error_msg = str(exc)
+                    failures.append((job, error_msg))
+                    logger.error(
+                        "Tailoring failed for %s at %s: %s",
+                        job.get("job_title", "Unknown Role"),
+                        job.get("company", "Unknown Company"),
+                        error_msg,
+                    )
+                pbar.update(1)
 
     # Print summary
     logger.info("✅ Succeeded: %d", len(successes))
@@ -487,6 +492,16 @@ def parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
     args = parse_args()
     configure_logging(args.log_level)
+    
+    # Validate API key and master CV before proceeding
+    if not validate_gemini_api_key():
+        logger.error("Cannot proceed without valid Gemini API key.")
+        sys.exit(1)
+    
+    if not validate_master_cv(args.master_cv):
+        logger.error("Cannot proceed without valid master CV.")
+        sys.exit(1)
+    
     create_tailored_cvs(
         master_cv_path=args.master_cv,
         jobs_csv=args.jobs_csv,
